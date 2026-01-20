@@ -1,37 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My helen</title>
-  <!-- ✅ Tailwind CSS CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>USDT P2P Trading</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Crypto price ticker (CoinGecko API) -->
+  <script>
+    async function updatePrice() {
+      try {
+        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether,bitcoin,ethereum&vs_currencies=usd');
+        const data = await res.json();
+        document.getElementById('usdt-price').innerText = `$${data.tether.usd.toFixed(2)}`;
+        document.getElementById('btc-price').innerText = `$${data.bitcoin.usd.toFixed(0)}`;
+        document.getElementById('eth-price').innerText = `$${data.ethereum.usd.toFixed(0)}`;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    setInterval(updatePrice, 10000); // update every 10 seconds
+    window.onload = updatePrice;
+
+    // Scarcity counter simulation
+    let tradesLeft = 3;
+    function updateScarcity() {
+      const el = document.getElementById('scarcity-counter');
+      el.innerText = tradesLeft > 0 ? `⚡ Only ${tradesLeft} trades left at this rate! ⚡` : '🔥 Trades closed for this rate!';
+    }
+    setInterval(() => {
+      if(tradesLeft > 0) tradesLeft--;
+      updateScarcity();
+    }, 20000); // decreases every 20 seconds
+  </script>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-900 text-white font-sans">
 
-  <!-- Header -->
-  <header class="bg-white shadow p-4">
-    <h1 class="text-2xl font-bold text-center">Welcome to My love</h1>
-  </header>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 py-24 relative">
+    <!-- Scarcity / urgency banner -->
+    <div id="scarcity-counter" class="absolute top-0 w-full bg-red-600 text-white text-center py-2 font-bold animate-pulse">
+      ⚡ Only 3 trades left at this rate! ⚡
+    </div>
+    <div class="container mx-auto text-center px-4 pt-12">
+      <h1 class="text-4xl md:text-6xl font-bold text-green-400 mb-4">Buy & Sell USDT Fast!</h1>
+      <p class="text-lg md:text-2xl text-gray-300 mb-8">Instant Mobile Money Payments — TRC20, ERC20, BEP20</p>
+      <a href="https://wa.me/256746005228" target="_blank" class="bg-green-500 hover:bg-green-600 text-black font-bold py-4 px-10 rounded-full text-xl transition-all duration-300 animate-bounce">
+        Contact via WhatsApp
+      </a>
+    </div>
+  </section>
 
-  <!-- Main Content -->
-  <main class="p-6 max-w-2xl mx-auto mt-10 bg-white rounded-xl shadow">
-    <h2 class="text-xl font-semibold mb-4">About This Site</h2>
-    <p class="text-gray-600 mb-4">
-      I Donot know. I indeed am lost feeling my soul is lost
-    </p>
-     <p class="text-gray-600 mb-4">muzeyi nicholas</p>
-    <a href="#" class="inline-block pb-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-      Learn More
-    </a>
-    <img src="muz.jpg" alt="Product"
-     class="w-64 rounded-lg border border-gray-300 hover:scale-105 transition-transform duration-300 pt-1" />
-  </main>
+  <!-- Crypto Price Ticker -->
+  <section class="py-6 bg-gray-800">
+    <div class="container mx-auto px-4 flex justify-center gap-8 text-white font-mono text-lg">
+      <div>USDT: <span id="usdt-price">Loading...</span></div>
+      <div>BTC: <span id="btc-price">Loading...</span></div>
+      <div>ETH: <span id="eth-price">Loading...</span></div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-white mb-12">Why Trade With Us?</h2>
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        <div class="bg-gray-800 p-6 rounded-xl hover:scale-105 transform transition duration-300">
+          <h3 class="text-xl font-semibold text-green-400 mb-2">Instant Payments</h3>
+          <p>Send Mobile Money → Receive USDT instantly.</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-xl hover:scale-105 transform transition duration-300">
+          <h3 class="text-xl font-semibold text-green-400 mb-2">Best Rates</h3>
+          <p>Competitive P2P rates for fast and profitable trades.</p>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-xl hover:scale-105 transform transition duration-300">
+          <h3 class="text-xl font-semibold text-green-400 mb-2">Trusted & Secure</h3>
+          <p>Safe, fast, and reliable trading 24/7.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Supported Blockchains -->
+  <section class="py-16 bg-gray-800">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-white mb-8">Supported Networks</h2>
+      <div class="flex justify-center gap-12">
+        <!-- TRC20 -->
+        <div class="flex flex-col items-center">
+          <img src="https://cryptologos.cc/logos/tron-trx-logo.png?v=024" alt="TRC20" class="w-16 h-16 mb-2">
+          <span class="text-green-400 font-bold">TRC20</span>
+        </div>
+        <!-- ERC20 -->
+        <div class="flex flex-col items-center">
+          <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png?v=024" alt="ERC20" class="w-16 h-16 mb-2">
+          <span class="text-green-400 font-bold">ERC20</span>
+        </div>
+        <!-- BEP20 -->
+        <div class="flex flex-col items-center">
+          <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png?v=024" alt="BEP20" class="w-16 h-16 mb-2">
+          <span class="text-green-400 font-bold">BEP20</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section with Confirmation Icons -->
+  <section class="py-16">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-white mb-12">How It Works</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 bg-gray-700 rounded-xl hover:scale-105 transform transition duration-300">
+          <h3 class="text-xl font-semibold text-green-400 mb-2">Step 1</h3>
+          <p>Send Mobile Money or USDT to the other party. <span class="text-green-400 font-bold">✅ Confirmed</span></p>
+        </div>
+        <div class="p-6 bg-gray-700 rounded-xl hover:scale-105 transform transition duration-300">
+          <h3 class="text-xl font-semibold text-green-400 mb-2">Step 2</h3>
+          <p>Confirm transaction securely on WhatsApp. <span class="text-green-400 font-bold">📲 Verified</span></p>
+        </div>
+        <div class="p-6 bg-gray-700 rounded-xl hover:scale-105 transform transition duration-300">
+          <h3 class="text-xl font-semibold text-green-400 mb-2">Step 3</h3>
+          <p>Receive USDT or Mobile Money instantly — trade complete! <span class="text-green-400 font-bold">💥 Done</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section with Animated Buy/Sell Buttons -->
+  <section class="py-16 bg-gray-900">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-white mb-6">Start Trading Now</h2>
+      <p class="text-gray-300 mb-6">Contact us instantly via WhatsApp for safe P2P trading</p>
+      <div class="flex justify-center gap-6 flex-wrap">
+        <a href="https://wa.me/256746005228" target="_blank" class="bg-green-500 hover:bg-green-600 text-black font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 animate-bounce">
+          BUY USDT
+        </a>
+        <a href="https://wa.me/256746005228" target="_blank" class="bg-red-500 hover:bg-red-600 text-black font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 animate-bounce">
+          SELL USDT
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
-  <footer class="text-center text-sm text-gray-500 mt-10 p-4">
-    © 2025 Muzeyi Nicholas. All rights reserved.
+  <footer class="bg-gray-900 py-6 text-center text-gray-400">
+    &copy; 2026 USDT P2P Trading. All Rights Reserved.
   </footer>
 
 </body>
 </html>
+
